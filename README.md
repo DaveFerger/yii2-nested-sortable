@@ -81,8 +81,8 @@ use claudejanz\yii2nestedSortable\NestedSortable;
 echo NestedSortable::widget([
     'items'         => Page::find()->andWhere(['parent_id'=>null])->all(),
     'url'           => ['pages/save-sortable'],
-    'contentAttribute' => 'title';
-    'itemsAttribute' => 'pages';
+    'contentAttribute' => 'title',
+    'itemsAttribute' => 'pages',
 ]);
 ```
 
