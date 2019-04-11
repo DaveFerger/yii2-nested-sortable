@@ -24,7 +24,8 @@ class NestedSortable extends Sortable
     public $url = [];
     public $handleOptions = [];
     public $pjaxSuccessId;
-    public $clientOptions = [
+    public $clientOptions = [];
+    public $defaultClientOptions = [
         'forcePlaceholderSize' => true,
         'handle'               => 'div',
         'listType'             => 'ul',
@@ -44,6 +45,7 @@ class NestedSortable extends Sortable
 
     public function run()
     {
+        $this->clientOptions = array_merge($this->defaultClientOptions, $this->clientOptions);
 
         if (isset($this->options['tag'])) {
             $this->clientOptions['listType'] = ArrayHelper::remove($this->options, 'tag', 'ul');
@@ -83,7 +85,7 @@ class NestedSortable extends Sortable
         $items[] = Html::beginTag($this->clientOptions['listType'], $this->options) . PHP_EOL;
         ArrayHelper::remove($this->options, 'id');
         foreach ($models as $model) {
-            $content = Html::tag($this->clientOptions['handle'], $model->{$this->contentAttribute}, $this->handleOptions);
+            $content = Html::tag('div', $model->{$this->contentAttribute}, $this->handleOptions);
             if ($model->{$this->itemsAttribute}) {
                 $content .= $this->renderItemsR($model->{$this->itemsAttribute});
             }
